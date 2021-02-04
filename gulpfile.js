@@ -18,7 +18,7 @@ function minificarcss(){
 } 
 
 function watchArchivos(){
-    watch('src/scss/app.scss', css);
+    watch('src/scss/**/*.scss', css);  //Todas las carpeta y archivos de Scss
 }
 
 exports.css = css;
