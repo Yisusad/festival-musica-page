@@ -1,6 +1,7 @@
-const { series, src, dest, watch } = require('gulp');
+const { series, src, dest, watch, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const imagemin = require('gulp-imagemin');
+const notify = require('gulp-notify');
 
 
 // Funcion para SASS
@@ -25,6 +26,7 @@ function imagenes(){
     return src('src/img/**/*')
     .pipe( imagemin())
     .pipe( dest( './build/img' ) ) 
+    .pipe( notify( {message: 'Imagen Minificada'} ) );
 }
 
 function watchArchivos(){
@@ -35,3 +37,5 @@ exports.css = css;
 exports.minificarcss = minificarcss;
 exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
+
+exports.default = series(css, imagenes, watchArchivos);
