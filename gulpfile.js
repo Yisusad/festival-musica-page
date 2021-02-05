@@ -2,6 +2,7 @@ const { series, src, dest, watch, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const imagemin = require('gulp-imagemin');
 const notify = require('gulp-notify');
+const webp = require('gulp-webp');
 
 
 // Funcion para SASS
@@ -29,6 +30,13 @@ function imagenes(){
     .pipe( notify( {message: 'Imagen Minificada'} ) );
 }
 
+function versionWebp(){
+    return src('src/img/**/*')
+    .pipe( webp() )
+    .pipe( dest( './build/img'))
+    .pipe( notify( {message: 'Webp Creado'} ) )
+}
+
 function watchArchivos(){
     watch('src/scss/**/*.scss', css);  //Todas las carpeta y archivos de Scss
 }
@@ -37,5 +45,6 @@ exports.css = css;
 exports.minificarcss = minificarcss;
 exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
+exports.versionWebp = versionWebp;
 
-exports.default = series(css, imagenes, watchArchivos);
+exports.default = series(css, imagenes, versionWebp, watchArchivos);
